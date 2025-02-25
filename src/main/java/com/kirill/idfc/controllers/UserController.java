@@ -1,9 +1,9 @@
-package com.kirill.idfc;
+package com.kirill.idfc.controllers;
 
+import com.kirill.idfc.services.UserService;
+import com.kirill.idfc.entities.User;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.UUID;
 
 @RestController
 @AllArgsConstructor

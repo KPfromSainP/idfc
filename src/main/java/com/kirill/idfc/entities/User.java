@@ -1,11 +1,9 @@
-package com.kirill.idfc;
+package com.kirill.idfc.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.UUID;
 
 @Entity
 @NoArgsConstructor

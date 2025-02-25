@@ -1,5 +1,7 @@
-package com.kirill.idfc;
+package com.kirill.idfc.services;
 
+import com.kirill.idfc.entities.User;
+import com.kirill.idfc.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

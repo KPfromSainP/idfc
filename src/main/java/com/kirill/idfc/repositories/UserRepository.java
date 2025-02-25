@@ -1,5 +1,6 @@
-package com.kirill.idfc;
+package com.kirill.idfc.repositories;
 
+import com.kirill.idfc.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
