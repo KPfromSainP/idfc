@@ -1,6 +1,6 @@
 package com.kirill.idfc.services;
 
-import com.kirill.idfc.entities.User;
+import com.kirill.idfc.entities.UserEntity;
 import com.kirill.idfc.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,8 +12,8 @@ import java.util.List;
 public class UserService {
     private final UserRepository userRepository;
 
-    public User getUserByName(String name) {
-        List<User> users = userRepository.findByName(name);
+    public UserEntity getUserByName(String name) {
+        List<UserEntity> users = userRepository.findByName(name);
         if (!users.isEmpty()) {
             return users.get(0);
         } else {
@@ -21,7 +21,7 @@ public class UserService {
         }
     }
 
-    public void save(User user) {
+    public void save(UserEntity user) {
         userRepository.save(user);
     }
 }

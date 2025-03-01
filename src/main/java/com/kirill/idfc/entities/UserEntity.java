@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Table(name = "users")
-public class User {
+public class UserEntity {
     @Id
     @GeneratedValue
     @Column(name = "id", unique = true, nullable = false)

@@ -1,7 +1,11 @@
 package com.kirill.idfc.controllers;
 
+import com.kirill.idfc.dto.user.UserCreateDTO;
+import com.kirill.idfc.dto.user.UserDTO;
+import com.kirill.idfc.mapping.UserCreateMap;
+import com.kirill.idfc.mapping.UserMap;
 import com.kirill.idfc.services.UserService;
-import com.kirill.idfc.entities.User;
+import com.kirill.idfc.entities.UserEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,13 +15,16 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/users/{name}")
-    public User hello(@PathVariable String name) {
-        return userService.getUserByName(name);
+    public UserDTO hello(@PathVariable String name) {
+        UserEntity userEntity = userService.getUserByName(name);
+        return UserMap.convertToDTO(userEntity);
     }
 
     @PostMapping("/users/")
-    public int addUser(@RequestBody User user) {
-        userService.save(user);
-        return user.getId();
+    public int addUser(@RequestBody UserCreateDTO user) {
+        UserEntity userEntity = UserCreateMap.convertToEntity(user);
+        userService.save(userEntity);
+        UserDTO userDTO = UserMap.convertToDTO(userEntity);
+        return userDTO.getId();
     }
 }
