@@ -16,6 +16,7 @@ so what should you do to start an app:
 - `git clone https://github.com/KPfromSainP/idfc`
 - `cd idfc`
 - `docker compose up`
+- check `docker ps` and find `postgres` container (name `idfc-postgres-1`)
 - `./mvnw spring-boot:run`
 - check [localhost:8080](http://localhost:8080) (and see the endpoints in doc)
 
