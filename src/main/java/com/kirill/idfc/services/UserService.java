@@ -1,6 +1,7 @@
 package com.kirill.idfc.services;
 
 import com.kirill.idfc.entities.UserEntity;
+import com.kirill.idfc.errors.AlreadyExistException;
 import com.kirill.idfc.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,9 @@ public class UserService {
     }
 
     public void save(UserEntity user) {
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+            throw new AlreadyExistException("User with this email already exists");
+        }
         userRepository.save(user);
     }
 }
