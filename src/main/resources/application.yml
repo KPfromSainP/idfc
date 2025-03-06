@@ -1,4 +1,6 @@
 spring:
+  config:
+    import: optional:file:.env[.properties]
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/mydatabase
@@ -14,3 +16,9 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
+  mail:
+    host: smtp.yandex.ru
+    protocol: smtp
+    username: ${MAIL_USER}
+    password: ${MAIL_PASSWORD}
+    port: 587

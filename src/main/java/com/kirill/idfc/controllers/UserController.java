@@ -31,4 +31,9 @@ public class UserController {
         UserDTO userDTO = UserMap.convertToDTO(userEntity);
         return userDTO.getId();
     }
+
+    @PostMapping("/users/test_mail/{id}")
+    public boolean testMail(@PathVariable int id) {
+        return userService.sendTestMail(id);
+    }
 }
