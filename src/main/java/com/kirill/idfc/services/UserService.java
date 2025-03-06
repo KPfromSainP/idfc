@@ -14,7 +14,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-    private MailSenderIm mailSender;
+    private MailSender mailSender;
 
     public UserEntity getUserByName(String name) {
         List<UserEntity> users = userRepository.findByName(name);
@@ -35,7 +35,7 @@ public class UserService {
     public boolean sendTestMail(int id) {
         Optional<UserEntity> user = userRepository.findById(id);
         if (user.isEmpty()) {
-            throw new NoSuchException("No such user");
+            throw new NoSuchException("No such user with id " + id);
         }
         String email = user.get().getEmail();
         mailSender.sendSimpleMail(email, "Test email", "i wanna test this shit 🤟");
