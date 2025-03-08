@@ -2,11 +2,14 @@ package com.kirill.idfc.services;
 
 import com.kirill.idfc.entities.UserEntity;
 import com.kirill.idfc.errors.AlreadyExistException;
+import com.kirill.idfc.errors.MailException;
 import com.kirill.idfc.errors.NoSuchException;
 import com.kirill.idfc.repositories.UserRepository;
+import jakarta.mail.MessagingException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,13 +35,31 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public boolean sendTestMail(int id) {
+    private String getUserEmail(int id) {
         Optional<UserEntity> user = userRepository.findById(id);
         if (user.isEmpty()) {
-            throw new NoSuchException("No such user with id " + id);
+            throw new NoSuchException("User with id " + id + " does not exist");
         }
-        String email = user.get().getEmail();
-        mailSender.sendSimpleMail(email, "Test email", "i wanna test this shit 🤟");
+        return user.get().getEmail();
+    }
+
+    public boolean sendTestMail(int id) {
+        String email = getUserEmail(id);
+        try {
+            mailSender.sendSimpleMail(email, "Test email", "i wanna test this shit 🤟");
+        } catch (MessagingException e) {
+            throw new MailException(e.getMessage());
+        }
+        return true;
+    }
+
+    public boolean sendAttachMail(int id, File file) {
+        String email = getUserEmail(id);
+        try {
+            mailSender.sendEmailWithAttachment(email, "Test email", "i wanna test this shit 🤟", file);
+        } catch (MessagingException e) {
+            throw new MailException(e.getMessage());
+        }
         return true;
     }
 }

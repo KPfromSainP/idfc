@@ -1,6 +1,7 @@
 package com.kirill.idfc.errors.controller;
 
 import com.kirill.idfc.errors.AlreadyExistException;
+import com.kirill.idfc.errors.BruhException;
 import com.kirill.idfc.errors.ErrorMessage;
 import com.kirill.idfc.errors.NoSuchException;
 import org.springframework.http.HttpStatus;
@@ -39,5 +40,12 @@ public class ErrorHandlingControllerAdvice {
     public ResponseEntity<ErrorMessage> notFoundException(NoSuchException ex) {
         ErrorMessage message = new ErrorMessage(HttpStatus.NOT_FOUND.value(), new Date(), "Not found", ex.getMessage());
         return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(BruhException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<ErrorMessage> notFoundException(BruhException ex) {
+        ErrorMessage message = new ErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR.value(), new Date(), "Bruh", ex.getMessage());
+        return new ResponseEntity<>(message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
