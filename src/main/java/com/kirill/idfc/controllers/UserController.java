@@ -19,7 +19,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/users/{name}")
-    public UserDTO hello(@PathVariable @NotBlank String name) {
+    public UserDTO getUser(@PathVariable @NotBlank String name) {
         UserEntity userEntity = userService.getUserByName(name);
         return UserMap.convertToDTO(userEntity);
     }
