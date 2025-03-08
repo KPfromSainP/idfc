@@ -2,7 +2,6 @@ package com.kirill.idfc.controllers;
 
 import com.kirill.idfc.dto.user.UserCreateDTO;
 import com.kirill.idfc.dto.user.UserDTO;
-import com.kirill.idfc.entities.TaskEntity;
 import com.kirill.idfc.mapping.UserCreateMap;
 import com.kirill.idfc.mapping.UserMap;
 import com.kirill.idfc.services.ExcelGenerator;
@@ -13,13 +12,11 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import org.apache.commons.io.FileUtils;
-import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 @Validated
 @RestController

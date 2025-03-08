@@ -1,9 +1,7 @@
 package com.kirill.idfc.mapping;
 
 import com.kirill.idfc.dto.task.TaskCreateDTO;
-import com.kirill.idfc.dto.user.UserCreateDTO;
 import com.kirill.idfc.entities.TaskEntity;
-import com.kirill.idfc.entities.UserEntity;
 import org.springframework.stereotype.Service;
 
 
