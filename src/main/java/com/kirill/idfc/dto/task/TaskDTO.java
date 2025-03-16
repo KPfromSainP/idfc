@@ -9,4 +9,5 @@ public class TaskDTO {
     private String title;
     private String description;
     private UserEntity user;
+    private int price;
 }

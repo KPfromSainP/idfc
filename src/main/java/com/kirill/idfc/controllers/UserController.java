@@ -2,6 +2,7 @@ package com.kirill.idfc.controllers;
 
 import com.kirill.idfc.dto.user.UserCreateDTO;
 import com.kirill.idfc.dto.user.UserDTO;
+import com.kirill.idfc.entities.TaskEntity;
 import com.kirill.idfc.mapping.UserCreateMap;
 import com.kirill.idfc.mapping.UserMap;
 import com.kirill.idfc.services.ExcelGenerator;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 @Validated
 @RestController
@@ -39,14 +41,16 @@ public class UserController {
         return userDTO.getId();
     }
 
-    @PostMapping("/users/test_mail/{id}")
-    public boolean testMail(@PathVariable int id) {
-        return userService.sendTestMail(id);
+    @PostMapping("/users/test_mail/{userId}")
+    public boolean testMail(@PathVariable int userId) {
+        List<TaskEntity> tasks = taskService.getTasksByAssignedId(userId);
+        return userService.sendTestMail(userId, tasks);
     }
 
     @PostMapping("/users/test_attach_mail/{userId}")
     public boolean testAttachMail(@PathVariable int userId) {
-        byte[] excelBytes = ExcelGenerator.generateExcel(taskService.getTasksByAssignedId(userId));
+        List<TaskEntity> tasks = taskService.getAllTasks();
+        byte[] excelBytes = ExcelGenerator.generateExcel(tasks, taskService.getTasksByAssignedId(userId), taskService.getTasksNotAssignedToUser(userId), userService.getUserById(userId));
         if (excelBytes.length != 0) {
             String fileName = "example.xls";
             File file = new File(fileName);
@@ -55,8 +59,8 @@ public class UserController {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            return userService.sendAttachMail(userId, file);
+            return userService.sendAttachMail(userId, file, tasks);
         }
-        return userService.sendTestMail(userId);
+        return userService.sendTestMail(userId, tasks);
     }
 }

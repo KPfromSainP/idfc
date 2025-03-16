@@ -12,6 +12,7 @@ public class TaskMap {
         taskEntity.setId(taskEntity.getId());
         taskEntity.setDescription(taskDTO.getDescription());
         taskEntity.setUser(taskDTO.getUser());
+        taskEntity.setPrice(taskDTO.getPrice());
         return taskEntity;
     }
 
@@ -21,6 +22,7 @@ public class TaskMap {
         taskDTO.setDescription(taskEntity.getDescription());
         taskDTO.setTitle(taskEntity.getTitle());
         taskDTO.setUser(taskEntity.getUser());
+        taskDTO.setPrice(taskEntity.getPrice());
         return taskDTO;
     }
 }

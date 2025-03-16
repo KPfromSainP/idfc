@@ -7,6 +7,7 @@ import com.kirill.idfc.mapping.TaskCreateMap;
 import com.kirill.idfc.mapping.TaskMap;
 import com.kirill.idfc.services.ExcelGenerator;
 import com.kirill.idfc.services.TaskService;
+import com.kirill.idfc.services.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.apache.commons.io.FileUtils;
@@ -28,6 +29,7 @@ import java.io.IOException;
 @AllArgsConstructor
 public class TaskController {
     private final TaskService taskService;
+    private final UserService userService;
 
     @GetMapping("/task/{id}")
     public TaskDTO getTask(@PathVariable int id) {
@@ -48,7 +50,7 @@ public class TaskController {
 
     @GetMapping("/task/generate_excel/{userId}")
     public ResponseEntity<Resource> downloadUsersTasks(@PathVariable int userId) {
-        byte[] excelBytes = ExcelGenerator.generateExcel(taskService.getTasksByAssignedId(userId));
+        byte[] excelBytes = ExcelGenerator.generateExcel(taskService.getAllTasks(), taskService.getTasksByAssignedId(userId), taskService.getTasksNotAssignedToUser(userId), userService.getUserById(userId));
         if (excelBytes.length != 0) {
             String fileName = "example.xls";
             MediaType mediaType = MediaType.parseMediaType("application/vnd.ms-excel");

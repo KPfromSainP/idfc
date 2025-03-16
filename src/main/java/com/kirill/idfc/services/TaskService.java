@@ -22,12 +22,20 @@ public class TaskService {
         return task.orElse(null);
     }
 
+    public List<TaskEntity> getTasksNotAssignedToUser(int userId) {
+        return taskRepository.getTasksNotAssignedToUser(userId);
+    }
+
     public List<TaskEntity> getTasksByAssignedId(int assignedId) {
         Optional<UserEntity> user = userRepository.findById(assignedId);
         if (user.isEmpty()) {
             throw new NoSuchException("User with id " + assignedId + " does not exist");
         }
         return taskRepository.findByUserId(assignedId);
+    }
+
+    public List<TaskEntity> getAllTasks() {
+        return taskRepository.findAll();
     }
 
     public void save(TaskEntity task) {

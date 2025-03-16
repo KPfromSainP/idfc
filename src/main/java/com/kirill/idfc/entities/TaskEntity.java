@@ -21,7 +21,7 @@ public class TaskEntity {
     @Column(name = "description")
     private String description;
     @Column(name = "price")
-    private String price;
+    private int price;
     @ManyToOne @JoinColumn(name = "assigned_id")
     private UserEntity user;
 

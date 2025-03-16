@@ -8,4 +8,5 @@ public class TaskCreateDTO {
     private String title;
     private String description;
     private UserEntity user;
+    private int price;
 }
